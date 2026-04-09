@@ -421,31 +421,27 @@
             return
         }
         //Get clicked item
-        let clickedItem = $(event.target).text();
-        //If the clickedItem ends with s we need to remove it
-        if (clickedItem.toLowerCase().endsWith("s")) {
-            clickedItem = clickedItem.slice(0, -1)
-        }
+        let clickedItem = $(event.target).text().trim().toLowerCase();
+
         //find all products
         let foodList = $(".listProduct").find("div.item");
 
-        //Var to know if we need to show or hide them
-        let show = false;
-
         //Functionality of showing/hiding
         for (let i = 0; i < foodList.length; i++) {
-            let foodType = $(foodList[i]).find('.foodType').val().trim()
-            if (show) {
-                $(foodList[i]).show()
-            }
-            else {
-                if (foodType === clickedItem) {
-                    $(foodList[i]).show()
-                }
-                else {
-                    $(foodList[i]).hide()
-                }
-            }
+            let foodType = $(foodList[i]).find('.foodType').val().trim().toLowerCase()
+			
+			console.log("MATCH CHECK:", {
+				clicked: clickedItem,
+				item: foodType,
+				equal: foodType === clickedItem
+			});
+
+			if (foodType === clickedItem) {
+				$(foodList[i]).show()
+			}
+			else {
+				$(foodList[i]).hide()
+			}
         }
     }
 
