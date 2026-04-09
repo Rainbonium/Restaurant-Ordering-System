@@ -1,6 +1,5 @@
 from django.core.management.base import BaseCommand
-from menuPage.models import Restaurant
-from menuPage.models import FoodItem
+from menuPage.models import Restaurant, Table, FoodItem
 
 class Command(BaseCommand):
     help = "Seed the tables"
@@ -17,9 +16,9 @@ class Command(BaseCommand):
             restaurant = Restaurant.objects.first()
             self.stdout.write(self.style.SUCCESS(f"Using existing restaurant: {restaurant.name} (ID: {restaurant.id})"))
         
-        restaurant = Restaurant.objects.first()
         for i in range(1, 7):
             Table.objects.get_or_create(table_number=i, restaurant=restaurant)
+        print("Tables created or already exist.")
         
         items = [
             {"name": "Aperol Spritz", "food_type": "drinks", "food_description": "A refreshing citrus cocktail.", "food_price": 12.00, "food_thumbnail": "images/AperolSpritz.jpg"},
