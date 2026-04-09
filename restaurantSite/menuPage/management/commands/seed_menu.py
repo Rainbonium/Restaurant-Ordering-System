@@ -1,10 +1,22 @@
 from django.core.management.base import BaseCommand
+from menuPage.models import Restaurant
 from menuPage.models import FoodItem
 
 class Command(BaseCommand):
-    help = "Seed the FoodItem table"
+    help = "Seed the tables"
 
     def handle(self, *args, **kwargs):
+        if not Restaurant.objects.exists():
+            restaurant = Restaurant.objects.create(
+                name="Test Restaurant",
+                phone_number="555-5555",
+                address="123 Main St"
+            )
+            self.stdout.write(self.style.SUCCESS(f"Created restaurant: {restaurant.name} (ID: {restaurant.id})"))
+        else:
+            restaurant = Restaurant.objects.first()
+            self.stdout.write(self.style.SUCCESS(f"Using existing restaurant: {restaurant.name} (ID: {restaurant.id})"))
+        
         items = [
             {"name": "Aperol Spritz", "food_type": "drinks", "food_description": "A refreshing citrus cocktail.", "food_price": 12.00, "food_thumbnail": "images/AperolSpritz.jpg"},
             {"name": "Classic Mojito", "food_type": "drinks", "food_description": "Mint, lime, and rum.", "food_price": 11.00, "food_thumbnail": "images/ClassicMojito.jpg"},
