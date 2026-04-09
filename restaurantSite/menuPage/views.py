@@ -38,9 +38,11 @@ def place_order(request):
     if request.method == 'POST':
         try:
             data = json.loads(request.body)
+            
             table_number = int(data.get('table_number'))
             restaurant_id = int(data.get('restaurant_id'))
             restaurant = Restaurant.objects.get(id=restaurant_id)
+
             items = data.get('items')
 
             table = Table.objects.get(table_number=table_number, restaurant = restaurant)

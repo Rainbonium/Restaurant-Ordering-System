@@ -512,7 +512,7 @@
     function getTableNumberFromURL(){
         const urlParams = new URLSearchParams(window.location.search);
         const tableNumber = urlParams.get('table');  // get 'table' parameter from URL
-        return tableNumber ? parseInt(tableNumber) : 404; // return as integer or null
+        return tableNumber ? parseInt(tableNumber) : 1; // return as integer or null
 
     }
 
@@ -523,7 +523,7 @@
             tableNumberDisplay.textContent = tableNumber.toString();
         }
         else {
-            tableNumberDisplay.textContent = 404;
+            tableNumberDisplay.textContent = 1;
         }
     }
 
