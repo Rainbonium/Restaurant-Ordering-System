@@ -8,8 +8,8 @@ class Command(BaseCommand):
         if not Restaurant.objects.exists():
             restaurant = Restaurant.objects.create(
                 name="Test Restaurant",
-                phone_number="555-5555",
-                address="123 Main St"
+                phone_number="123-4567",
+                address="Somewhere"
             )
             self.stdout.write(self.style.SUCCESS(f"Created restaurant: {restaurant.name} (ID: {restaurant.id})"))
         else:
@@ -18,7 +18,7 @@ class Command(BaseCommand):
         
         for i in range(1, 7):
             Table.objects.get_or_create(table_number=i, restaurant=restaurant)
-        print("Tables created or already exist.")
+            self.stdout.write(self.style.SUCCESS(f"Created table: {i}"))
         
         items = [
             {"name": "Aperol Spritz", "food_type": "drinks", "food_description": "A refreshing citrus cocktail.", "food_price": 12.00, "food_thumbnail": "images/AperolSpritz.jpg"},

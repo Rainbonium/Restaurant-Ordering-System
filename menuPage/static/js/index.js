@@ -452,7 +452,7 @@
     function sendOrderToDB(tableNumber) {
 		const orderData = {
 			table_number: tableNumber,
-			restaurant_id: 1,   // replace with your actual Restaurant.id
+			restaurant_id: 1,
 			items: carts
 		};
 
@@ -500,7 +500,7 @@
         const qrCodeDiv = document.getElementById('qrcode');
         qrCodeDiv.innerHTML=""; // clear any existing QR code
         new QRCode(qrCodeDiv, {
-            text: `https://sharktoothrestaurant.com?table=${tableNumber}`,
+            text: `http://127.0.0.1:8000/menuPage?table=${tableNumber}`,
             width: 512,
             height: 512,
         });
