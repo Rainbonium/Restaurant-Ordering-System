@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Submit a new Restaurant</title>
+    <link rel="icon" href="/static/Images/amongus.png" type="image/x-icon">
+    {% load static %}
+    <link href="{% static '/css/index.css' %}" rel="stylesheet">
+    <link href="{% static '/css/createRestaurant.css' %}" rel="stylesheet">
+</head>
+<body>
+    <div class="root">
+        <nav class="navbar">
+            <ul>
+                <li>
+                    <a href="{% url 'index' %}"><img
+                        src="{% static '/images/amongus.png' %}"
+                        alt="Error: Image not showing"
+                        width="50"
+                        height="45"></a>
+                </li>
+                <li><a href="{% url 'index' %}">Appetizers</a></li>
+                <li><a href="{% url 'index' %}">Food</a></li>
+                <li><a href="{% url 'index' %}">Drinks</a></li>
+                <li>
+                     <a href="{% url 'create_restaurant' %}" class="btn btn-primary">Create Restaurant</a>
+                </li>
+            </ul>
+        </nav>
+        <div class="body">
+            <div id="advert" class="column">
+                <h1 style="color: darkred; text-align: center;">Create Restaraunt</h1>
+                <ul>
+                    <li>Track customer orders</li>
+                    <li>Manage inventory</li>
+                    <li>Add and delete options</li>
+                </ul>
+            </div>
+            <div id="form" class="column">
+                <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">Submit</button>
+                </form>
+            </div>
+        </div>
+        <div class="footer">
+            <p>Lorem ipsum dolor sit amet,consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        </div>
+    </div>
+</body>
+</html>

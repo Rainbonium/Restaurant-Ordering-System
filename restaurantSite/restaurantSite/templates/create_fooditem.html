@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Submit a new Food Item</title>
+    <link rel="icon" href="/static/Images/amongus.png" type="image/x-icon">
+    <!--FIXME: External CSS file not working-->
+    <link rel="stylesheet" href="/static/style.css">
+    <style>
+        .form {
+            background-color: white;
+            border-style: solid;
+            border-width: medium;
+            border-color: black;
+            border-radius: 5px;
+            padding: 10px;
+        }
+
+        body{
+            background-color: lightblue;
+        }
+
+        h1 {
+            color: darkred;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Enter Your Data</h1>
+    <div class="form">
+        <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Submit</button>
+    </form>
+    </div>
+</body>
+</html>
