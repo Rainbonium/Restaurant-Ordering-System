@@ -4,7 +4,6 @@ from django.views.decorators.csrf import csrf_exempt
 from django.db import transaction
 from .models import Order, Table, Restaurant, Person, FoodItem
 from .forms import RestaurantForm, FoodItemForm
-from bson import ObjectId
 from django.http import HttpResponse
 from django.conf import settings
 import random
@@ -40,23 +39,23 @@ def place_order(request):
         try:
             data = json.loads(request.body)
             table_number = int(data.get('table_number'))
-            restaurant_id = ObjectId(data.get('restaurant_id'))
+            restaurant_id = int(data.get('restaurant_id'))
+            restaurant = Restaurant.objects.get(id=restaurant_id)
             items = data.get('items')
 
-            restaurant = Restaurant.objects.get(_id=restaurant_id)
             table = Table.objects.get(table_number=table_number, restaurant = restaurant)
 
             order_items = []
             if items:
                 for item in items:
                     print(item)
-                    product_id = item['product_id']
+                    product_id = int(item['product_id'])
                     quantity = item.get('quantity', 1)  # Default quantity to 1 if not provided
                     try:
-                        food_item = FoodItem.objects.get(_id=ObjectId(product_id))  # Convert to ObjectId
+                        food_item = FoodItem.objects.get(id=product_id)
 
                         order_items.append({
-                            'food_item_id': str(food_item._id),
+                            'food_item_id': str(food_item.id),
                             'food_item_name': food_item.name,
                             'food_item_price': str(food_item.food_price),
                             'quantity': quantity
@@ -73,7 +72,7 @@ def place_order(request):
                     items=order_items
                 )
 
-            return JsonResponse({'message': 'Order placed successfully!', 'order_id': str(order._id)}, status=201)
+            return JsonResponse({'message': 'Order placed successfully!', 'order_id': order.id}, status=201)
 
         except Table.DoesNotExist:
             return JsonResponse({'error': 'Table not found.'}, status=404)
