@@ -450,37 +450,34 @@
     }
 
     function sendOrderToDB(tableNumber) {
-        const orderData = {
-            table_number: tableNumber,
-            restaurant_id: "507f191e810c19729de860ee",
-            items: carts
-        };
+		const orderData = {
+			table_number: tableNumber,
+			restaurant_id: 1,   // replace with your actual Restaurant.id
+			items: carts
+		};
 
-        console.log(JSON.stringify(orderData))
-
-        // Send order to backend
-        fetch('place_order', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRFToken': getCSRFToken()
-            },
-            body: JSON.stringify(orderData)
-        })
-            .then(response => response.json())
-            .then(data => {
-                if (data.message) {
-                    alert('Payment successful! Order ID: ' + data.order_id);
-                    checkoutModal.style.display = 'none';
-                    clearItemsInCart();
-                } else {
-                    alert('Error: ' + data.error);
-                }
-            })
-            .catch(error => {
-                alert('Failed to create order: ' + error.message);
-            });
-    }
+		fetch('place_order', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+				'X-CSRFToken': getCSRFToken()
+			},
+			body: JSON.stringify(orderData)
+		})
+		.then(response => response.json())
+		.then(data => {
+			if (data.message) {
+				alert('Payment successful! Order ID: ' + data.order_id);
+				checkoutModal.style.display = 'none';
+				clearItemsInCart();
+			} else {
+				alert('Error: ' + data.error);
+			}
+		})
+		.catch(error => {
+			alert('Failed to create order: ' + error.message);
+		});
+	}
 
     // Helper function to get CSRF token from cookie
     function getCSRFToken() {
