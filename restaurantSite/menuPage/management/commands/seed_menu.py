@@ -17,6 +17,10 @@ class Command(BaseCommand):
             restaurant = Restaurant.objects.first()
             self.stdout.write(self.style.SUCCESS(f"Using existing restaurant: {restaurant.name} (ID: {restaurant.id})"))
         
+        restaurant = Restaurant.objects.first()
+        for i in range(1, 7):
+            Table.objects.get_or_create(table_number=i, restaurant=restaurant)
+        
         items = [
             {"name": "Aperol Spritz", "food_type": "drinks", "food_description": "A refreshing citrus cocktail.", "food_price": 12.00, "food_thumbnail": "images/AperolSpritz.jpg"},
             {"name": "Classic Mojito", "food_type": "drinks", "food_description": "Mint, lime, and rum.", "food_price": 11.00, "food_thumbnail": "images/ClassicMojito.jpg"},
